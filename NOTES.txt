@@ -1,0 +1,45 @@
+Product notes: 
+
+So far, the architecture appears to work well. 
+There are, however, a few small tasks left to complete for this project.
+
+
+I. Pretraining the ConvLayer on the COCOA dataset:
+    In order for image embeddings to be useful, they should carry learned information 
+    about different objects which could appear in game.
+    GTA games are filled with cars, people, stop signs, buildings, and animals, which would 
+    all contribute significantly to the richness of the image embeddings used in the 
+    encoder layer self-attention mechanism.
+
+
+II. Developing a decorator pattern to separate training from inference:
+    Remove the ConvolutionalLayer from direct training of the model. 
+    Use it to produce embeddings using the preprocess_img_embeddings()
+    function in feature_engineering.py.
+    During inference, attach the conv layer to provide the embeddings 
+    based on screenshots.
+
+    When calling the agent.action_life_cycle() method, treat the agent.queue 
+    data structure as an image batch (img_batch) of size 1, by reshaping it 
+    to go from 
+    (sequence_length, width, height, num_channels)=>
+        (1, sequence_length, width, height, num_channels).
+    We feed it through and get out encoder inputs for inference
+    image_batch = np.array(agents.queue).reshape(1, 
+        agent.context_window, 
+        agent.img_width, 
+        agent.img_height
+    )
+    encoder_inputs = preprocess_img_embeddings(image_batch)
+    #Where decoder inputs = padded array of null tokens (no action?)
+    preds = transformer((encoder_inputs, decoder_inputs))
+    
+3. Add positional encoding to the image embeddings.
+
+4. Preprocess and label the keypress and image data accordingly, making use of the 
+Keras Tokenizer API to convert each key on the keyboard to a categorical label before even 
+training the model.
+
+
+Progress: Model should be fully trained by end of October, with excellent documentation to 
+accompany its usage.
