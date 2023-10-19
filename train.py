@@ -1,7 +1,11 @@
 from classes.model import *
+from classes.model import Transformer
 from tensorflow.python.client import device_lib
 from tensorflow.keras.optimizers.legacy import Adam
 from classes.optimizer import CustomSchedule
+
+FOOTAGE = 'FOOTAGE'#Path to footage folder
+KEYLOG = 'KEYLOG'#Path to keylog.txt
 
 device_lib.list_local_devices()
 gpus = tf.config.experimental.list_physical_devices('GPU')
@@ -18,6 +22,11 @@ Each batch should contain an image sequence, and two versions of the target sequ
 The first is "key_press" data, and the second is "labels". Labels is just the keypress data with the 
 indices of the elements shifted up by 1.
 '''
+
+
+############################ ETL PIPELINE 
+############################
+
 
 
 vocab_size=50
