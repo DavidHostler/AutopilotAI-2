@@ -9,7 +9,7 @@ im1 = np.array(im1) #Load this data into our model for inference!
 
 #Record screenshots during live play.
 def record(num_seconds, delay=0.1):
-
+    time.sleep(3) #Give me three seconds to start
     start_time = time.time()
     current_time = time.time()
     count = 0
@@ -21,7 +21,7 @@ def record(num_seconds, delay=0.1):
         # print(im1.shape, type(im1))
         current_time = time.time()
         count+=1
-        time.sleep(delay)
+        # time.sleep(delay)
 
 
-record(3, delay=0.5)
+record(2, delay=0.5)

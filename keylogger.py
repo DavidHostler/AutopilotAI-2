@@ -6,7 +6,7 @@ import pyautogui
 import time 
 # 
 logging.basicConfig(filename=(os.getcwd() + "/keylog.txt"), level=logging.DEBUG, format=" %(asctime)s - %(message)s")
-
+count=0
 def on_press(key):
     logging.info(str(key))
     # img = pyautogui.screenshot()
@@ -17,13 +17,16 @@ def on_press(key):
     #Apache Pyspark is perfect for use in analyzing the timestamp footage to acquire line-by-line 
     #Unix timestamps through the use of Lambda functions.
     img = pyautogui.screenshot(os.getcwd() +  '/footage/screenshot.png')
+    # img = pyautogui.screenshot(os.getcwd() +  '/footage/' + str(count)  + '.png')
+    # count+=1
+
 
 def log_keystrokes(func):
     with Listener(on_press=func) as listener:
         listener.join()
-time.sleep(3) #Give me time to get ready
-print('GO!')
-log_keystrokes(on_press)
+# time.sleep(3) #Give me time to get ready
+# print('GO!')
+# log_keystrokes(on_press)
 
 
 '''
