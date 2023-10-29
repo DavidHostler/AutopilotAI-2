@@ -28,4 +28,4 @@ def record(num_seconds, head_start=10 ,delay=0.1):
 if __name__ == "__main__":
     #15 min * 60s = 9000
     print('Thanks for starting!')
-    record(9000, head_start=10, delay=0.5)
+    record(2, head_start=10, delay=0.5)

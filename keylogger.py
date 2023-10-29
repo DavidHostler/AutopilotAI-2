@@ -4,29 +4,43 @@ import os
 import numpy as np 
 import pyautogui
 import time 
+# from PIL import ImageFile
+# ImageFile.LOAD_TRUNCATED_IMAGES = True
+
 # 
 logging.basicConfig(filename=(os.getcwd() + "/keylog.txt"), level=logging.DEBUG, format=" %(asctime)s - %(message)s")
 count=0
+
+class RecordingPipeline:
+
+    def __init__(self) -> None:
+        self.count = 0
+
+    def on_press(self, key):
+        logging.info(str(key))
+        pyautogui.screenshot(os.getcwd() +  '/footage/' + str(count) + 'screenshot.png')
+        self.count+=1 #Update image count on press action 
+    
+
+    def log_keystrokes(self):
+        with Listener(on_press=self.on_press) as listener:
+            listener.join()
+
 def on_press(key):
     logging.info(str(key))
-    # img = pyautogui.screenshot()
-    # print(np.array(img).shape)
-    #Record image into "footage" directory. 
-    #Running this function in the keylogger additionally provides the timestamp of the 
-    #screenshot in the keylog.txt file- which makes for very easy data engineering
-    #Apache Pyspark is perfect for use in analyzing the timestamp footage to acquire line-by-line 
-    #Unix timestamps through the use of Lambda functions.
-    img = pyautogui.screenshot(os.getcwd() +  '/footage/screenshot.png')
-    # img = pyautogui.screenshot(os.getcwd() +  '/footage/' + str(count)  + '.png')
+    img = pyautogui.screenshot(os.getcwd() +  '/footage/' + str(count) + 'screenshot.png')
+    # pyautogui.screenshot(os.getcwd() +  '/footage/' + str(count)  + '.png')
     # count+=1
 
 
 def log_keystrokes(func):
     with Listener(on_press=func) as listener:
         listener.join()
-# time.sleep(3) #Give me time to get ready
+time.sleep(1) #Give me time to get ready
 # print('GO!')
 # log_keystrokes(on_press)
+pipeline = RecordingPipeline()
+pipeline.log_keystrokes()
 
 
 '''
