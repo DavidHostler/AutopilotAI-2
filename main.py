@@ -24,6 +24,7 @@ def record(num_seconds, head_start=10 ,delay=0.1):
         count+=1
         # time.sleep(delay)
 #
+
 if __name__ == "__main__":
     #15 min * 60s = 9000
     print('Thanks for starting!')

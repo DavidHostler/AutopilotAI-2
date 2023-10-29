@@ -1,3 +1,5 @@
 pyautogui
 numpy 
-cv2
+opencv-python
+pynput
+pyscreeze
